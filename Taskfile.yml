@@ -2,7 +2,7 @@
 version: "3"
 
 includes:
-  ansible: kubernetes/Taskfile.yml
+  ansible: kubernetes/Taskfile.yaml
 
 tasks:
 
@@ -27,11 +27,13 @@ tasks:
   copy-kubeconfig:
     desc: Copy the cube config from the cluster master to the client
     cmds:
-      - scp serveradmin@192.168.1.120:~/.kube/config ~/.kube/config
+      - scp -i {{.SSH_KEY}} serveradmin@192.168.1.120:~/.kube/config ~/.kube/config
       - chown $USER:$USER ~/.kube/config
       - chmod 600 ~/.kube/config
       - export KUBECONFIG=~/.kube/config
       - cp ~/.kube/config ~/provision/kubeconfig
+    vars:
+      SSH_KEY: "~/.ssh/id_rsa_private"
 
   enable-ssh-agent:
     desc: Enable the ssh key agent
