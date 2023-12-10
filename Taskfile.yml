@@ -1,0 +1,49 @@
+---
+version: "3"
+
+includes:
+  ansible: kubernetes/Taskfile.yml
+
+tasks:
+
+  install-zsh:
+    desc: Install zsh shell with set theme and plugins
+    cmds:
+      - sudo apt install zsh fontconfig -y
+      - fc-cache -f -v
+      - sudo cp $HOME/.config/zsh/completion/* /usr/local/share/zsh/site-functions/
+      - chsh -s $(which zsh)
+      - echo "Logout and login again for the changes to take effect"
+
+  sync-repo-to-home:
+    desc: Copy relevant files from the homelab repo to the local home directory
+    cmds:
+      - rsync -av --progress $HOME/homelab/.config $HOME/
+      - rsync -av --progress $HOME/homelab/.local $HOME/
+      - rsync -av --progress $HOME/homelab/.envrc $HOME/
+      - rsync -av --progress $HOME/homelab/.zshrc $HOME/
+      - rsync -av --progress $HOME/homelab/.p10k.zsh $HOME/
+
+  copy-kubeconfig:
+    desc: Copy the cube config from the cluster master to the client
+    cmds:
+      - scp serveradmin@192.168.1.120:~/.kube/config ~/.kube/config
+      - chown $USER:$USER ~/.kube/config
+      - chmod 600 ~/.kube/config
+      - export KUBECONFIG=~/.kube/config
+      - cp ~/.kube/config ~/provision/kubeconfig
+
+  enable-ssh-agent:
+    desc: Enable the ssh key agent
+    cmds:
+      - eval "$(ssh-agent -s)"
+      - ssh-add ~/.ssh/id_rsa
+
+  update-system:
+    desc: Update the system
+    cmds:
+      - sudo apt update -y
+      - sudo apt upgrade -y
+      - brew update
+      - brew upgrade
+      - helm repo update
