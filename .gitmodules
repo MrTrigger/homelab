@@ -1,3 +1,24 @@
 [submodule "kubernetes"]
 	path = kubernetes
 	url = git@github.com:MrTrigger/kubernetes.git
+[submodule ".config/zsh/powerlevel10k"]
+	path = .config/zsh/powerlevel10k
+	url = git@github.com:romkatv/powerlevel10k.git
+[submodule ".config/zsh/ohmyzsh"]
+	path = .config/zsh/ohmyzsh
+	url = git@github.com:ohmyzsh/ohmyzsh.git
+[submodule ".config/zsh/zsh-z"]
+	path = .config/zsh/zsh-z
+	url = git@github.com:agkozak/zsh-z.git
+[submodule ".config/zsh/zsh-autopair"]
+	path = .config/zsh/zsh-autopair
+	url = git@github.com:hlissner/zsh-autopair.git
+[submodule ".config/zsh/zsh-autosuggestions"]
+	path = .config/zsh/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions.git
+[submodule ".config/zsh/zsh-syntax-highlighting"]
+	path = .config/zsh/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
+[submodule ".config/zsh/zsh-completions"]
+	path = .config/zsh/zsh-completions
+	url = git@github.com:zsh-users/zsh-completions.git
